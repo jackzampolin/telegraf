@@ -85,7 +85,7 @@ func (rmq *RabbitMQParser) Start(acc telegraf.Accumulator) error {
 	rmq.log = f
 
 	// Limit number of workers to the number of CPU on system
-	rmq.cl = NewConcurrencyLimiter(runtime.NumCPU())
+	rmq.cl = NewConcurrencyLimiter(runtime.NumCPU() * 2)
 
 	// Create queue connection and assign it to RabbitMQParser
 	conn, err := amqp.Dial(rmq.RabbitmqAddress)
