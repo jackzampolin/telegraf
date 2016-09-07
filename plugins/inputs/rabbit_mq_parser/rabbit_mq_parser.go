@@ -251,6 +251,8 @@ func (ir *IRMessage) point() *client.Point {
 	meas, tags, fields := structureKey(ir.Key, ir.Value)
 	tags["host"] = ir.Host
 	tags["server"] = ir.Server
+    	//Adding Datacenter as first 4 letter of hostname
+    	tags["dc"] = ir.Host[:4]	
 	pt, err := client.NewPoint(meas, tags, fields, ir.Clock)
 	if err != nil {
 		panic(fmt.Errorf("%v: creating float point", err))
